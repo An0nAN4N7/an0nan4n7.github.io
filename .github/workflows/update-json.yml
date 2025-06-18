@@ -1,0 +1,43 @@
+name: Auto Generate JSON Files
+
+on:
+  push:
+    paths:
+      - 'assets/certificates/**'
+      - 'assets/pdf/notes/**'
+      - 'posts/**'
+      - 'scripts/*.py'
+  workflow_dispatch:
+
+jobs:
+  generate-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: 📦 Install Python dependencies
+        run: pip install -r requirements.txt || echo "No requirements.txt, skipping."
+
+      - name: 🔁 Run: generate_notes_json.py
+        run: python scripts/generate_notes_json.py
+
+      - name: 🔁 Run: generate_certificates_json.py
+        run: python scripts/generate_certificates_json.py
+
+      - name: 🔁 Run: generate_writeup_json.py
+        run: python scripts/generate_writeup_json.py
+
+      - name: 🚀 Commit & Push changes
+        run: |
+          git config user.name "anantsec-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/*.json
+          git commit -m "🔄 Auto-update JSONs from GitHub Action" || echo "No changes to commit"
+          git push

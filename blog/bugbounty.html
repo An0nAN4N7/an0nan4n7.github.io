@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bug Bounty Writeups – anantsec</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #292a2d;
+      color: #a9a9b3;
+    }
+
+    body.light-theme {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: #fff;
+      font-size: 2.2rem;
+      position: relative;
+    }
+
+    body.light-theme h1 {
+      color: #111;
+    }
+
+    h1::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: #aaa;
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
+
+    .writeup-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1rem;
+      border-bottom: 2px dotted #444;
+    }
+
+    body.light-theme .writeup-entry {
+      border-bottom: 2px dotted #ccc;
+    }
+
+    .writeup-entry a {
+      color: #ddd;
+      font-size: 1.05rem;
+      text-decoration: none;
+    }
+
+    .writeup-entry a:hover {
+      color: #fff;
+    }
+
+    body.light-theme .writeup-entry a {
+      color: #111;
+    }
+
+    body.light-theme .writeup-entry a:hover {
+      color: #000;
+    }
+
+    .writeup-date {
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Navigation Bar -->
+<nav>
+  <div class="nav-left">
+   <a href="index.html" id="home_page" style="font-family: monospace; display: flex; align-items: center; gap: 6px;">
+  <span>>anantSec</span>
+  <span id="svg-icon" class="flicker"></span>
+</a>
+  </div>
+  <div class="nav-right">
+    <a href="../about.html">About</a>
+    <a href="../notes.html">Notes</a>
+    <a href="../resume.html">Resume</a>
+    <a href="../certificates.html">Certificates</a>
+    <a href="../writeups.html">Writeups</a>
+    <div class="theme-icon">◐</div>
+  </div>
+</nav>
+
+<!-- ✅ Bug Bounty Writeups Section -->
+<main>
+  <h1>🕷️ Bug Bounty Writeups</h1>
+  <div id="bugbounty-wrapper"></div>
+</main>
+
+<footer>
+  <p style="text-align:center; padding: 2rem 0; font-size: 0.9rem; color: #555">© 2025 anantsec – by Anant Ku. Pandey</p>
+</footer>
+
+<script>
+fetch("../data/bugbounty.json")
+  .then(res => res.json())
+  .then(data => {
+    const wrapper = document.getElementById("bugbounty-wrapper");
+    data.forEach(post => {
+      const entry = document.createElement("div");
+      entry.className = "writeup-entry";
+      entry.innerHTML = `
+        <a href="../view.html?type=bugbounty&file=${encodeURIComponent(post.file)}">${post.name}</a>
+        <span class="writeup-date">${post.date}</span>
+      `;
+      wrapper.appendChild(entry);
+    });
+  })
+  .catch(err => {
+    document.getElementById("bugbounty-wrapper").innerHTML =
+      "<p style='color: #888;'>⚠️ Failed to load bug bounty writeups.</p>";
+    console.error(err);
+  });
+</script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

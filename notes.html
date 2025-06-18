@@ -1,0 +1,161 @@
+<!-- ✅ Updated notes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Notes – Anantsec Cybersecurity Portfolio" />
+  <title>anantsec – Notes</title>
+
+  <!-- Styles -->
+  
+  <style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #292a2d;
+    color: #a9a9b3;
+  }
+
+  .notes-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  .notes-container h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #a9a9b3;
+  }
+
+  .notes-group {
+    margin-bottom: 3rem;
+  }
+
+  .notes-group h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #a9a9b3;
+    border-bottom: 2px dashed #444;
+    padding-bottom: 0.5rem;
+  }
+
+  .note-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.8rem 0;
+    border-bottom: 2px dotted #444;
+  }
+
+  .note-entry a {
+    color: #a9a9b3;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .note-entry a:hover {
+    color: #fff;
+  }
+
+  .note-date {
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  body.light-theme .notes-container h1 {
+    color: #111;
+  }
+
+  body.light-theme .notes-group h2 {
+    color: #333;
+    border-color: #ccc;
+  }
+
+  body.light-theme .note-entry a {
+    color: #111;
+  }
+
+  body.light-theme .note-entry a:hover {
+    color: #000;
+  }
+
+  body.light-theme .note-date {
+    color: #777;
+  }
+</style>
+
+
+<link rel="stylesheet" href="assets/css/style.css" />
+
+</head>
+<body>
+  <!-- ✅ Navigation Bar -->
+  <nav>
+    <div class="nav-left">
+      <a href="index.html" id="home_page" style="font-family: monospace; display: flex; align-items: center; gap: 6px;">
+  <span>>anantSec</span>
+  <span id="svg-icon" class="flicker"></span>
+</a>
+    </div>
+    <div class="nav-right">
+      <a href="about.html">About</a>
+      <a href="notes.html">Notes</a>
+      <a href="resume.html">Resume</a>
+      <a href="certificates.html">Certificates</a>
+      <a href="writeups.html">Writeups</a>
+      <div class="theme-icon">◐</div>
+    </div>
+  </nav>
+
+  <!-- ✅ Notes Section -->
+  <main class="notes-container">
+    <h1>📚 Study Notes</h1>
+    <div id="notes-wrapper"></div>
+  </main>
+
+  <footer>
+    <p style="text-align:center; padding: 2rem 0; font-size: 0.9rem; color: #555">© 2025 anantsec – by Anant Ku. Pandey</p>
+  </footer>
+
+  <script>
+    fetch("data/notes.json")
+      .then(res => res.json())
+      .then(data => {
+        const grouped = {};
+        data.forEach(note => {
+          const year = new Date(note.date).getFullYear();
+          if (!grouped[year]) grouped[year] = [];
+          grouped[year].push(note);
+        });
+
+        const wrapper = document.getElementById("notes-wrapper");
+        Object.keys(grouped).sort((a, b) => b - a).forEach(year => {
+          const group = document.createElement("div");
+          group.className = "notes-group";
+          group.innerHTML = `<h2>${year}</h2>`;
+
+          grouped[year].forEach(note => {
+            const entry = document.createElement("div");
+            entry.className = "note-entry";
+            entry.innerHTML = `
+              <a href="${note.url}" download>${note.name}</a>
+              <span class="note-date">${note.date}</span>
+            `;
+            group.appendChild(entry);
+          });
+
+          wrapper.appendChild(group);
+        });
+      })
+      .catch(err => {
+        document.getElementById("notes-wrapper").innerHTML =
+          "<p style='color: #888;'>⚠️ Failed to load notes.</p>";
+        console.error(err);
+      });
+  </script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writeup Viewer – anantsec</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1f22;
+      color: #ccc;
+      margin: 0;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .writeup-content {
+      background: #2a2b2f;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .writeup-content h1, .writeup-content h2, .writeup-content h3 {
+      color: #fff;
+    }
+
+    .writeup-content p, .writeup-content li {
+      line-height: 1.8;
+      color: #bbb;
+    }
+
+    .writeup-content img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .writeup-content pre {
+      background: #1e1f22;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+ .back-icon {
+  margin: 1.5rem 0;
+}
+
+.back-icon a {
+  color: #888;
+  font-size: 1.4rem;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.back-icon a:hover {
+  color: #fff;
+  transform: translateX(-4px);
+}
+
+
+
+  </style>
+</head>
+<body>
+
+<!-- ✅ Navigation Bar -->
+<nav>
+  <div class="nav-left">
+   <a href="index.html" id="home_page" style="font-family: monospace; display: flex; align-items: center; gap: 6px;">
+  <span>>anantSec</span>
+  <span id="svg-icon" class="flicker"></span>
+</a>
+  </div>
+  <div class="nav-right">
+    <a href="about.html">About</a>
+    <a href="notes.html">Notes</a>
+    <a href="resume.html">Resume</a>
+    <a href="certificates.html">Certificates</a>
+    <a href="writeups.html">Writeups</a>
+    <div class="theme-icon">◐</div>
+  </div>
+</nav>
+
+<main>
+    <div class="back-icon">
+        <a href="javascript:history.back()" title="Go back">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+
+
+
+  <div id="content" class="writeup-content">Loading...</div>
+</main>
+
+<footer>
+  <p>© 2025 anantsec – by Anant Ku. Pandey</p>
+</footer>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const type = urlParams.get('type');
+  const file = urlParams.get('file');
+
+  if (!type || !file) {
+    document.getElementById('content').innerHTML = '<p>❌ Invalid file path.</p>';
+  } else {
+    fetch(`./posts/${type}/${file}`)
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('content').innerHTML = html;
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('content').innerHTML = '<p>⚠️ Failed to load the writeup.</p>';
+      });
+  }
+</script>
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>
