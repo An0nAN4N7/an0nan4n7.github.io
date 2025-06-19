@@ -31,9 +31,11 @@ jobs:
 
       - name: Run Certificates JSON Generator
         run: python scripts/generate_certificates_json.py
+        working-directory: scripts/
 
       - name: Run Writeups JSON Generator
         run: python scripts/generate_writeup_json.py
+        working-directory: scripts/
 
       - name: Commit & Push Changes
         run: |
