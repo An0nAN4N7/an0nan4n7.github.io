@@ -1,42 +1,43 @@
-name: Update JSON Data
+name: Auto Generate JSON Files
 
 on:
   push:
     paths:
-      - 'scripts/**'
-      - '.github/workflows/**'
-  workflow_dispatch:  # allows manual trigger
+      - 'assets/certificates/**'
+      - 'assets/pdf/notes/**'
+      - 'posts/**'
+      - 'scripts/*.py'
+  workflow_dispatch:
 
 jobs:
   generate-json:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.x'
 
-      - name: Install Python Requirements
-        run: |
-          python -m pip install --upgrade pip
+      - name: 📦 Install Python dependencies
+        run: pip install -r requirements.txt || echo "No requirements.txt, skipping."
 
-      - name: Run Notes JSON Generator
+      - name: 🔁 Run: generate_notes_json.py
         run: python scripts/generate_notes_json.py
 
-      - name: Run Certificates JSON Generator
+      - name: 🔁 Run: generate_certificates_json.py
         run: python scripts/generate_certificates_json.py
 
-      - name: Run Writeups JSON Generator
+      - name: 🔁 Run: generate_writeup_json.py
         run: python scripts/generate_writeup_json.py
 
-      - name: Commit & Push Changes
+      - name: 🚀 Commit & Push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "anantsec-bot"
+          git config user.email "bot@users.noreply.github.com"
           git add data/*.json
-          git commit -m "Update JSON files [auto]" || echo "No changes to commit"
+          git commit -m "🔄 Auto-update JSONs from GitHub Action" || echo "No changes to commit"
           git push

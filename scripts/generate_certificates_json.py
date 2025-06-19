@@ -1,24 +1,28 @@
+# scripts/generate_certificates_json.py
+
 import os
 import json
 
-cert_dir = "../assets/certificates"
-output_file = "../data/certificates.json"
+CERT_FOLDER = '../assets/certificates'
+OUTPUT_FILE = '../data/certificates.json'
 
-if not os.path.exists(cert_dir) or not os.listdir(cert_dir):
-    print("No certificates found. Skipping JSON generation.")
-    exit(0)
+certificates = []
+badges = []
 
-certs = []
+for file in sorted(os.listdir(CERT_FOLDER)):
+    if file.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+        entry = {"file": file, "description": ""}
+        if 'badge' in file.lower():
+            badges.append(entry)
+        else:
+            certificates.append(entry)
 
-for fname in sorted(os.listdir(cert_dir)):
-    if fname.lower().endswith((".png", ".jpg", ".jpeg", ".webp", ".svg")):
-        certs.append({
-            "title": os.path.splitext(fname)[0].replace("-", " ").title(),
-            "image": f"assets/certificates/{fname}",
-            "date": "2025-01-01"  # Add logic to set this from filename if needed
-        })
+data = {
+    "certificates": certificates,
+    "badges": badges
+}
 
-with open(output_file, "w") as f:
-    json.dump(certs, f, indent=2)
+with open(OUTPUT_FILE, 'w') as f:
+    json.dump(data, f, indent=2)
 
-print("Certificates JSON generated successfully.")
+print(f"✅ Generated {OUTPUT_FILE}")
