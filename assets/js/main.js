@@ -1,26 +1,21 @@
 // === main.js ===
 document.addEventListener("DOMContentLoaded", () => {
-  // Apply saved theme to all pages
+  // === Theme Toggle ===
+  const themeToggle = document.querySelector(".theme-icon");
+
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "light") {
     document.body.classList.add("light");
-  } else {
-    document.body.classList.remove("light");
   }
 
-  // Handle toggle if theme icon exists
-  const themeToggle = document.querySelector(".theme-icon");
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light");
-      localStorage.setItem(
-        "theme",
-        document.body.classList.contains("light") ? "light" : "dark"
-      );
+      localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
     });
   }
 
-  // Typing effect only on pages that have it
+  // === Typing Effect (only if present) ===
   const typedTextSpan = document.querySelector(".typed-text");
   const cursorSpan = document.querySelector(".cursor");
 
@@ -72,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(type, 1000);
   }
 
-  // SVG Icon logic
+  // === SVG Icon Logic ===
   const svgIcons = [
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/></svg>`,
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C7.03 2 3 6.03 3 11c0 4.64 3.41 8.47 8 8.94V22h2v-2.06c4.59-.47 8-4.3 8-8.94 0-4.97-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7 0-3.86 3.14-7 7-7s7 3.14 7 7c0 3.86-3.14 7-7 7z"/></svg>`,
@@ -88,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
       svgContainer.innerHTML = randomIcon;
     }
 
-    changeIcon(); // on page load
-    setInterval(changeIcon, 2500);
+    changeIcon(); // set on page load
+    setInterval(changeIcon, 2500); // every 2.5s
   }
 });
