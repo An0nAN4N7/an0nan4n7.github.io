@@ -98,27 +98,4 @@ const svgIcons = [
 
 
 
-// theme checker
-// === Apply saved theme on page load ===
-window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light');
-  }
-});
 
-// === Toggle theme & save it ===
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleButton = document.querySelector('.theme-icon');
-  if (toggleButton) {
-    toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      // Save preference
-      if (document.body.classList.contains('light')) {
-        localStorage.setItem('theme', 'light');
-      } else {
-        localStorage.setItem('theme', 'dark');
-      }
-    });
-  }
-});
