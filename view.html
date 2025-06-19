@@ -45,10 +45,14 @@
       color: #fff;
     }
 
-    .writeup-content p, .writeup-content li {
-      line-height: 1.8;
+   .writeup-content p,
+    .writeup-content li,
+    .writeup-content {
+      font-size: 1.1rem;
+      line-height: 1.6;
       color: #bbb;
     }
+
 
     .writeup-content img {
       max-width: 100%;
@@ -86,6 +90,33 @@
   color: #fff;
   transform: translateX(-4px);
 }
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  font-size: 0.4rem;
+  color: #888;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+body.light footer {
+  color: #555;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  color: #888;
+}
+
+footer p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
 
 
 
@@ -133,6 +164,9 @@
   <p>© 2025 anantsec – by Anant Ku. Pandey</p>
 </footer>
 
+
+
+
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const type = urlParams.get('type');
@@ -152,7 +186,7 @@
       });
   }
 </script>
-<script src="../assets/js/main.js"></script>
+<script src="/assets/js/main.js"></script>
 
 </body>
 </html>

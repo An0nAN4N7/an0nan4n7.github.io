@@ -26,6 +26,29 @@ body.light a:hover {
   color: #555;
 }
 
+
+/* == Index page change== */
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.center-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
 /* === Navbar === */
 
 /* logo */
@@ -199,6 +222,30 @@ body.light footer {
 
 
 
+.site-footer {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  font-family: monospace;
+  opacity: 0.9;
+}
+
+.footer-title {
+  font-size: 1rem;
+  color: #e0e0e0;
+}
+
+.footer-sub {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+body.light .footer-title {
+  color: #222;
+}
+
+body.light .footer-sub {
+  color: #555;
+}
 
 
 
