@@ -25,17 +25,17 @@ jobs:
           python -m pip install --upgrade pip
 
       - name: Run Notes JSON Generator
-        run: python generate_notes_json.py
-        working-directory: scripts/
-
+          run: python generate_notes_json.py
+          working-directory: scripts/
 
       - name: Run Certificates JSON Generator
-        run: python scripts/generate_certificates_json.py
-        working-directory: scripts/
+          run: python generate_certificates_json.py
+          working-directory: scripts/
 
       - name: Run Writeups JSON Generator
-        run: python scripts/generate_writeup_json.py
-        working-directory: scripts/
+          run: python generate_writeup_json.py
+          working-directory: scripts/
+
 
       - name: Commit & Push Changes
         run: |
