@@ -8,6 +8,14 @@ body {
   transition: all 0.3s ease;
 }
 body.light {
+ 
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), url('../img/back-img.jpg'); 
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Makes the background fixed while scrolling */
+
   background-color: #f7f7f7;
   color: #333;
 }
@@ -25,6 +33,25 @@ a:hover {
 body.light a:hover {
   color: #555;
 }
+
+/* index page backgroung image in light mode  */
+body#index-page-body.light {
+
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.6)),url('../img/1.png'); 
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-attachment: fixed; /* Makes the background image fixed while scrolling (optional) */
+}
+
+/* Navbar color for index page in light mode */
+body#index-page-body.light nav {
+  background-color: transparent; /* White background for the navbar */
+  border-bottom: 1px solid #c9c9c9;
+}
+
+
+
 
 
 /* == Index page change== */
@@ -85,9 +112,10 @@ nav {
   transition: background-color 0.3s ease;
 }
 body.light nav {
-  background-color: #e0e0e0;
-  border-color: #ccc;
+   background-color: #ffffff; /* White background for the navbar */
+   border-color: #f0f0f0; /* A lighter border color for the white nav */
 }
+ 
 
 .nav-left {
   font-weight: bold;
@@ -151,6 +179,10 @@ body.light .nav-right a:hover {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     z-index: 999;
+  }
+  body.light .nav-right {
+    background-color: #f7f7f7; /* Light mode background for the dropdown */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: Adjust shadow for light theme */
   }
 
   #menu-toggle:checked + .menu-icon + .nav-right {
@@ -492,3 +524,7 @@ body.light-theme .cert-card {
 body.light-theme .cert-description {
   color: #333;
 }
+
+
+
+

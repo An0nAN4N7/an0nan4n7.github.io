@@ -87,3 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(changeIcon, 2500); // every 2.5s
   }
 });
+
+
+
+
