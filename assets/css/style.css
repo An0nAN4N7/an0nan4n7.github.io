@@ -528,3 +528,64 @@ body.light-theme .cert-description {
 
 
 
+/* ... (your existing CSS) ... */
+
+/* Fullscreen Image Overlay */
+.fullscreen-overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.9); /* Black background with opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.fullscreen-overlay.active {
+    display: flex; /* Show when active */
+}
+
+/* Refined Fullscreen Image Styles */
+.fullscreen-image {
+    max-width: 95%; /* Allow it to take up to 95% of the width */
+    max-height: 95%; /* Allow it to take up to 95% of the height */
+    width: auto; /* Let the browser determine width based on max-width/height and aspect ratio */
+    height: auto; /* Let the browser determine height based on max-width/height and aspect ratio */
+    object-fit: contain; /* Ensures the image fits within its bounds without cropping */
+    display: block; /* Remove extra space below inline elements */
+    margin: auto; /* Center the image horizontally and vertically */
+}
+
+.close-fullscreen {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-fullscreen:hover,
+.close-fullscreen:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+/* Ensure the main content doesn't scroll when overlay is active */
+body.overlay-active {
+    overflow: hidden;
+}
+
+/* Media query for smaller screens to ensure download button is visible */
+@media (max-width: 500px) {
+    .resume-download {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+}

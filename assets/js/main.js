@@ -1,73 +1,107 @@
 // === main.js ===
+
 document.addEventListener("DOMContentLoaded", () => {
-  // === Theme Toggle ===
+  // Initialize all functionalities when the DOM is fully loaded.
+  initThemeToggle();
+  initTypingEffect();
+  initSvgIconAnimation();
+  initResumeImageFullscreen();
+});
+
+/**
+ * Initializes the theme toggle functionality.
+ * Checks for a saved theme in localStorage and applies it.
+ * Toggles the 'light' class on the body when the theme icon is clicked.
+ */
+function initThemeToggle() {
   const themeToggle = document.querySelector(".theme-icon");
 
+  // Apply saved theme on load
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "light") {
     document.body.classList.add("light");
   }
 
+  // Add click listener for theme toggle
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light");
       localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
     });
   }
+}
 
-  // === Typing Effect (only if present) ===
+/**
+ * Initializes the typing effect for the hero section.
+ * This function will only run if the required elements are present.
+ */
+function initTypingEffect() {
   const typedTextSpan = document.querySelector(".typed-text");
   const cursorSpan = document.querySelector(".cursor");
 
-  if (typedTextSpan && cursorSpan) {
-    const textArray = [
-      "Hi, I am Anant",
-      "[anant@root]# ./exploit.sh",
-      ">> Initiating Recon_Protocol 🛰️",
-      ":: BugBounty >> Active 🐞",
-      "h4ck3r_m0d3_enabled",
-      "defend > attack && adapt",
-      "C:\\Users\\Anant>_whoami",
-      "/anantsec:~$ sudo elevate",
-      "access_granted@anantsec.dev",
-      "> echo 'pwnd!' | netcat",
-      "{404} logic not found",
-      "<injecting_payload>...",
-      "[+] Shell obtained",
-      ">> echo $FLAG > ~/success.txt",
-      "🛡️ ethical_hack.exe"
-    ];
-    const typingDelay = 65;
-    const erasingDelay = 50;
-    const newTextDelay = 1500;
-    let textArrayIndex = 0;
-    let charIndex = 0;
-
-    function type() {
-      if (charIndex < textArray[textArrayIndex].length) {
-        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-        charIndex++;
-        setTimeout(type, typingDelay);
-      } else {
-        setTimeout(erase, newTextDelay);
-      }
-    }
-
-    function erase() {
-      if (charIndex > 0) {
-        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
-        charIndex--;
-        setTimeout(erase, erasingDelay);
-      } else {
-        textArrayIndex = (textArrayIndex + 1) % textArray.length;
-        setTimeout(type, typingDelay + 500);
-      }
-    }
-
-    setTimeout(type, 1000);
+  if (!typedTextSpan || !cursorSpan) {
+    return; // Exit if elements are not found (e.g., not on index page)
   }
 
-  // === SVG Icon Logic ===
+  const textArray = [
+    "Hi, I am Anant",
+    "[anant@root]# ./exploit.sh",
+    ">> Initiating Recon_Protocol 🛰️",
+    ":: BugBounty >> Active 🐞",
+    "h4ck3r_m0d3_enabled",
+    "defend > attack && adapt",
+    "C:\\Users\\Anant>_whoami",
+    "/anantsec:~$ sudo elevate",
+    "access_granted@anantsec.dev",
+    "> echo 'pwnd!' | netcat",
+    "{404} logic not found",
+    "<injecting_payload>...",
+    "[+] Shell obtained",
+    ">> echo $FLAG > ~/success.txt",
+    "🛡️ ethical_hack.exe"
+  ];
+  const typingDelay = 65;
+  const erasingDelay = 50;
+  const newTextDelay = 1500;
+  let textArrayIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (charIndex < textArray[textArrayIndex].length) {
+      typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(type, typingDelay);
+    } else {
+      setTimeout(erase, newTextDelay);
+    }
+  }
+
+  function erase() {
+    if (charIndex > 0) {
+      typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(erase, erasingDelay);
+    } else {
+      textArrayIndex = (textArrayIndex + 1) % textArray.length;
+      setTimeout(type, typingDelay + 500);
+    }
+  }
+
+  // Start the typing effect after a brief delay
+  setTimeout(type, 1000);
+}
+
+/**
+ * Initializes the SVG icon animation for the logo.
+ * Randomly changes the SVG icon at a set interval.
+ */
+function initSvgIconAnimation() {
+  const svgContainer = document.getElementById('svg-icon');
+
+  if (!svgContainer) {
+    return; // Exit if SVG container is not found
+  }
+
   const svgIcons = [
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/></svg>`,
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C7.03 2 3 6.03 3 11c0 4.64 3.41 8.47 8 8.94V22h2v-2.06c4.59-.47 8-4.3 8-8.94 0-4.97-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7 0-3.86 3.14-7 7-7s7 3.14 7 7c0 3.86-3.14 7-7 7z"/></svg>`,
@@ -76,18 +110,59 @@ document.addEventListener("DOMContentLoaded", () => {
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.25 3.25 10 9 12 5.75-2 9-6.75 9-12V5l-9-4z"/></svg>`
   ];
 
-  const svgContainer = document.getElementById('svg-icon');
-  if (svgContainer) {
-    function changeIcon() {
-      const randomIcon = svgIcons[Math.floor(Math.random() * svgIcons.length)];
-      svgContainer.innerHTML = randomIcon;
-    }
-
-    changeIcon(); // set on page load
-    setInterval(changeIcon, 2500); // every 2.5s
+  function changeIcon() {
+    const randomIcon = svgIcons[Math.floor(Math.random() * svgIcons.length)];
+    svgContainer.innerHTML = randomIcon;
   }
-});
 
+  changeIcon(); // Set an icon immediately on page load
+  setInterval(changeIcon, 2500); // Change icon every 2.5 seconds
+}
 
+/**
+ * Handles the logic for displaying the resume image in fullscreen.
+ * Opens the overlay when the preview image is clicked and closes it
+ * via the close button, overlay click, or Escape key.
+ */
+function initResumeImageFullscreen() {
+  const resumePreviewImage = document.getElementById('resume-preview-image');
+  const fullscreenOverlay = document.getElementById('fullscreen-overlay');
+  const fullscreenImage = document.getElementById('fullscreen-image');
+  const closeFullscreenButton = document.getElementById('close-fullscreen');
 
+  // Only proceed if all necessary elements are found on the page
+  if (!resumePreviewImage || !fullscreenOverlay || !fullscreenImage || !closeFullscreenButton) {
+    return;
+  }
 
+  // Function to open the fullscreen overlay
+  const openFullscreen = () => {
+    fullscreenOverlay.classList.add('active');
+    fullscreenImage.src = resumePreviewImage.src; // Set the source for the full-screen image
+    document.body.classList.add('overlay-active'); // Prevent main body scrolling
+  };
+
+  // Function to close the fullscreen overlay
+  const closeFullscreen = () => {
+    fullscreenOverlay.classList.remove('active');
+    document.body.classList.remove('overlay-active'); // Re-enable main body scrolling
+  };
+
+  // Add event listeners
+  resumePreviewImage.addEventListener('click', openFullscreen);
+  closeFullscreenButton.addEventListener('click', closeFullscreen);
+
+  // Close when clicking outside the image on the overlay
+  fullscreenOverlay.addEventListener('click', (e) => {
+    if (e.target === fullscreenOverlay) {
+      closeFullscreen();
+    }
+  });
+
+  // Close when the Escape key is pressed
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
+      closeFullscreen();
+    }
+  });
+}
